@@ -3,8 +3,10 @@ using ConsoleAdventure.Project.Models;
 
 namespace ConsoleAdventure.Project.Interfaces
 {
-  public interface IPlayer
+  public interface IEntity
   {
-    List<IItem> Inventory { get; set; }
+    List<IItem> Loot { get; set; }
+    int Health { get; set; }
+    string Name { get; set; }
   }
 }
