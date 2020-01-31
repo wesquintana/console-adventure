@@ -3,16 +3,12 @@ using ConsoleAdventure.Project.Interfaces;
 
 namespace ConsoleAdventure.Project.Models
 {
-  public class Weapon : IItem
+  public class Weapon : Item
   {
-    public Weapon(string name, string description, int damage)
+    public Weapon(string name, string description, int damage) : base(name, description)
     {
-      Description = description;
-      Name = name;
       Damage = damage;
     }
-    public string Name { get; set; }
-    public string Description { get; set; }
     public int Damage { get; set; }
   }
 }

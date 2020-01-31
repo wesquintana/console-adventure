@@ -10,8 +10,7 @@ namespace ConsoleAdventure.Project.Models
     public string Description { get; set; }
     public List<IItem> Items { get; set; } = new List<IItem>();
     public bool Locked { get; set; }
-    public string KeyRequired { get; set; }
-    //locked Door
+    //locked 
     public IRoom[] Directions { get; set; } = new IRoom[6];
     public List<IEntity> Entities { get; set; } = new List<IEntity>();
     public Room(string name, string description)

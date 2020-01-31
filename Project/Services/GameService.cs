@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using ConsoleAdventure.Project.Interfaces;
 using ConsoleAdventure.Project.Models;
 using ConsoleAdventure.Project.Utils;
@@ -33,6 +34,24 @@ namespace ConsoleAdventure.Project
       _game.CurrentRoom.Entities.Remove(_game.CurrentPlayer);
       _game.CurrentRoom = _game.CurrentRoom.Directions[indexDirection];
       _game.CurrentRoom.Entities.Add(_game.CurrentPlayer);
+    }
+    public void Use(string itemName)
+    {
+      IItem item = _game.CurrentPlayer.Inventory.Find(item => item.Name == itemName);
+      if (item == null)
+      {
+        Messages.Add($"You dont have a {itemName}");
+        return;
+      }
+      if (item.GetType().Name != "KeyItem")
+      {
+        Messages.Add($"{item.Name} can't be used!");
+        return;
+      }
+      Type thisType = this.GetType();
+      MethodInfo theMethod = thisType.GetMethod(((KeyItem)item).MethodName);
+      theMethod.Invoke(this, new IItem[] { item });
+
     }
     public void Help()
     {
@@ -105,6 +124,10 @@ namespace ConsoleAdventure.Project
     {
       Messages.Add($"\t\t{_game.CurrentRoom.Name}");
       Messages.Add(_game.CurrentRoom.Description);
+    }
+    public void Unlock()
+    {
+      //   _game.CurrentRoom.Directions
     }
 
     public void Quit()
