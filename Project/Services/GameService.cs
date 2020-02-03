@@ -142,7 +142,7 @@ namespace ConsoleAdventure.Project
           if (_game.CurrentRoom.Directions[i].GetType().Name == "LockedRoom" && ((LockedRoom)_game.CurrentRoom.Directions[i]).KeyName == keyItem.Name)
           {
             _game.CurrentRoom.Directions[i].Locked = false;
-            _game.CurrentRoom.Description = "The room to the west has been stablized.";
+            _game.CurrentRoom.Description = "This room has strings of green ones and zeroes flowing in every direction across its black walls. There is a room that seems to be flickering in and out of existence to the west, but now it looks like it has stablized.";
             Messages.Add("Unlocked!");
           }
         }
