@@ -122,7 +122,7 @@ namespace ConsoleAdventure.Project.Controllers
     //NOTE Gets the user input, calls the appropriate command, and passes on the option if needed.
     public void GetUserInput()
     {
-      Console.WriteLine("What would you like to do?");
+      Console.Write("What would you like to do? ");
       string input = Console.ReadLine().ToLower() + " ";
       Console.Clear();
       string command = input.Substring(0, input.IndexOf(" "));
