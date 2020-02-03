@@ -55,7 +55,7 @@ namespace ConsoleAdventure.Project
     }
     public void Help()
     {
-      Messages.Add("inventory, take, go (North,South,East,West,Up,Down), look, stop");
+      Messages.Add("inventory, take, go (North,South,East,West,Up,Down), look, stop, use (item), attack (enemy), attack (enemy) with (weapon), restart");
     }
 
     public void Inventory()
