@@ -50,7 +50,7 @@ namespace ConsoleAdventure.Project
       }
       Type thisType = this.GetType();
       MethodInfo theMethod = thisType.GetMethod(((KeyItem)item).MethodName);
-      object[] parametersArray = new object[] { (KeyItem)item };
+      object[] parametersArray = new KeyItem[] { (KeyItem)item };
       theMethod.Invoke(this, parametersArray);
     }
     public void Help()
@@ -119,6 +119,10 @@ namespace ConsoleAdventure.Project
       }
       Messages.Add($"{attackedEntity.Name} took {((Weapon)weapon).Damage} from your {weapon.Name} and now has {attackedEntity.Health} left!");
     }
+    public void Win()
+    {
+      Messages.Add("You win!");
+    }
 
     public void Look()
     {
@@ -130,12 +134,17 @@ namespace ConsoleAdventure.Project
       // IRoom tempRoom;
       for (int i = 0; i < _game.CurrentRoom.Directions.Length; i++)
       {
-        IRoom currentRoom = _game.CurrentRoom.Directions[i];
-        if (currentRoom.GetType().Name == "LockedRoom" && ((LockedRoom)currentRoom).KeyName == keyItem.Name)
+        // Console.WriteLine(_game.CurrentRoom.Directions[i].Name);
+        if (_game.CurrentRoom.Directions[i] != null)
         {
-          currentRoom.Locked = false;
-          _game.CurrentRoom.Description = "The room to the west has been stablized.";
-          Messages.Add("Unlocked!");
+
+
+          if (_game.CurrentRoom.Directions[i].GetType().Name == "LockedRoom" && ((LockedRoom)_game.CurrentRoom.Directions[i]).KeyName == keyItem.Name)
+          {
+            _game.CurrentRoom.Directions[i].Locked = false;
+            _game.CurrentRoom.Description = "The room to the west has been stablized.";
+            Messages.Add("Unlocked!");
+          }
         }
       }
     }

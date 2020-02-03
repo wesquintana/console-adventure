@@ -51,6 +51,15 @@ namespace ConsoleAdventure.Project.Controllers
           }
         }
         _gameService.Look();
+        if (_gameService.Messages.Contains("This is where it all ends."))
+        {
+          Console.Clear();
+          _gameService.Win();
+          Print();
+          Console.WriteLine("Though your short adventure already seems to be over, you can't help but think that you might need to return at some point.");
+          Console.ReadKey(false);
+          Environment.Exit(0);
+        }
         Print();
         GetUserInput();
       }
