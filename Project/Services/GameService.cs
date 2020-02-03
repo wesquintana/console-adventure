@@ -35,9 +35,9 @@ namespace ConsoleAdventure.Project
       _game.CurrentRoom = _game.CurrentRoom.Directions[indexDirection];
       _game.CurrentRoom.Entities.Add(_game.CurrentPlayer);
     }
-    public void Use(string itemName)
+    public void UseItem(string itemName)
     {
-      IItem item = _game.CurrentPlayer.Inventory.Find(item => item.Name == itemName);
+      IItem item = _game.CurrentPlayer.Inventory.Find(item => item.Name.ToLower() == itemName);
       if (item == null)
       {
         Messages.Add($"You dont have a {itemName}");
@@ -50,8 +50,8 @@ namespace ConsoleAdventure.Project
       }
       Type thisType = this.GetType();
       MethodInfo theMethod = thisType.GetMethod(((KeyItem)item).MethodName);
-      theMethod.Invoke(this, new IItem[] { item });
-
+      object[] parametersArray = new object[] { (KeyItem)item };
+      theMethod.Invoke(this, parametersArray);
     }
     public void Help()
     {
@@ -125,9 +125,19 @@ namespace ConsoleAdventure.Project
       Messages.Add($"\t\t{_game.CurrentRoom.Name}");
       Messages.Add(_game.CurrentRoom.Description);
     }
-    public void Unlock()
+    public void Unlock(IItem keyItem)
     {
-      //   _game.CurrentRoom.Directions
+      // IRoom tempRoom;
+      for (int i = 0; i < _game.CurrentRoom.Directions.Length; i++)
+      {
+        IRoom currentRoom = _game.CurrentRoom.Directions[i];
+        if (currentRoom.GetType().Name == "LockedRoom" && ((LockedRoom)currentRoom).KeyName == keyItem.Name)
+        {
+          currentRoom.Locked = false;
+          _game.CurrentRoom.Description = "The room to the west has been stablized.";
+          Messages.Add("Unlocked!");
+        }
+      }
     }
 
     public void Quit()
@@ -173,9 +183,5 @@ namespace ConsoleAdventure.Project
     ///Make sure you validate the item is in the room or player inventory before
     ///being able to use the item
     ///</summary>
-    public void UseItem(string itemName)
-    {
-      throw new System.NotImplementedException();
-    }
   }
 }
