@@ -8,7 +8,7 @@ namespace ConsoleAdventure.Project.Models
     public IRoom CurrentRoom { get; set; }
     public Player CurrentPlayer { get; set; }
 
-    //NOTE Make yo rooms here...
+    //NOTE Code for room creation. May want to move to another section.
     public void Setup()
     {
       Player player = new Player();
